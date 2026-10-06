@@ -1,0 +1,11 @@
+Metric,Target,Current,Date,Notes
+API Response Time (P95),500ms,,,Collect from Application Insights
+API Error Rate,1%,,,Collect from Application Insights
+Availability (Uptime),99.9%,,,Collect from Azure Monitor
+Test Coverage,75%,,,From CI/CD pipeline report
+DB Query Performance (P95),100ms,,,Collect from Azure SQL Insights
+Service Bus Message Latency,5s,,,Collect from Service Bus Metrics
+Cache Hit Ratio (Redis),80%,,,Collect from Azure Cache for Redis
+Deployment Frequency,1x/week,,,From GitHub Actions / Azure DevOps
+Mean Time to Resolve (MTTR),4h,,,Track per incident in Azure Monitor
+Active Users (DAU/MAU),Per SLA,,,From App Insights + Database

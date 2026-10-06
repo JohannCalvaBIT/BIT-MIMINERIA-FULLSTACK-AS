@@ -1,0 +1,182 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-branch-name:
+    name: Validate branch name (G-GLOBAL-02)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check branch naming convention
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          if echo "$BRANCH" | grep -qE '^(changeset-release|renovate|dependabot)/'; then
+            echo "✅ Automation branch allowed."
+            exit 0
+          fi
+          if echo "$BRANCH" | grep -qE '^(feature|bugfix|hotfix)/[a-z0-9]+(-[a-z0-9]+)*$'; then
+            echo "✅ Branch follows G-GLOBAL-02 convention."
+          else
+            echo "❌ Branch does NOT follow G-GLOBAL-02."
+            echo "   Expected: feature/short-kebab-case-description"
+            echo "            bugfix/short-kebab-case-description"
+            echo "            hotfix/short-kebab-case-description"
+            exit 1
+          fi
+
+  validate-commits:
+    name: Validate conventional commits (G-GLOBAL-02)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit messages
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git log --format="%s" "$BASE..$HEAD" | while read -r msg; do
+            if echo "$msg" | grep -qE '^(feat|fix|docs|refactor|test|chore|perf|style|ci|build|revert)(\(.+\))?!?:\s.+'; then
+              echo "✅ $msg"
+            else
+              echo "❌ '$msg' does not follow Conventional Commits."
+              exit 1
+            fi
+          done
+
+  build-test-frontend:
+    name: Build & test (frontend — Angular)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install
+        working-directory: src/apps/web/frontend
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        working-directory: src/apps/web/frontend
+        run: pnpm lint
+      # Enforces min 70% coverage via karma.conf.js's check.global block (only
+      # present if the frontend was bootstrapped by bit init's automated
+      # Angular setup — G-CICD-02, G-TEST-04). Without it, coverage is still
+      # measured/reported, just not gated.
+      - name: Test with coverage (min 70% — G-CICD-02, G-TEST-04)
+        working-directory: src/apps/web/frontend
+        run: pnpm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+      - name: Build
+        working-directory: src/apps/web/frontend
+        run: pnpm build
+
+  build-test-backend:
+    name: Build & test (backend — .NET)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore
+        run: dotnet restore src/apps/web/backend/
+      - name: Build
+        run: dotnet build src/apps/web/backend/ --no-restore
+      # Requires the test project to reference coverlet.msbuild (included by
+      # default in `dotnet new nunit`/`dotnet new xunit`). Excludes Program.cs
+      # — generated/boilerplate code that isn't meaningfully unit-testable —
+      # from the coverage calculation. No *.Migrations.*/*ModelSnapshot to
+      # exclude: schema migrations are SQL scripts (Script-Only, G-DB-02), not
+      # EF Core-generated C# classes.
+      # Third-party framework code (EF Core, ASP.NET Core) is never part of
+      # this number to begin with: coverage tools only instrument your own
+      # compiled assembly, not referenced NuGet packages.
+      - name: Test with coverage (min 70% line coverage — G-CICD-02, G-TEST-04)
+        run: |
+          dotnet test src/apps/web/backend/ --no-build \
+            /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=cobertura \
+            /p:Threshold=70 \
+            /p:ThresholdType=line \
+            /p:ThresholdStat=total \
+            /p:Exclude="[*]Program"
+
+  e2e:
+    name: E2E smoke test (Playwright)
+    needs: [build-test-frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install frontend dependencies
+        working-directory: src/apps/web/frontend
+        run: pnpm install --frozen-lockfile
+      - name: Install E2E dependencies
+        working-directory: tests/e2e
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        working-directory: tests/e2e
+        run: pnpm exec playwright install --with-deps chromium
+      # G-TEST-01: E2E solo para flujos críticos — este es el smoke test base
+      # (tests/e2e/tests/smoke.spec.ts), no un sustituto de unit/integration.
+      # Playwright arranca "pnpm start" del frontend por su cuenta (ver
+      # webServer en playwright.config.ts) y espera a que responda antes de
+      # correr los tests.
+      - name: Run E2E smoke test
+        working-directory: tests/e2e
+        run: pnpm test
+
+  security-scan:
+    name: Dependency vulnerability scan (G-CICD-02)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Frontend dependency audit (fails on high/critical — G-CICD-02)
+        working-directory: src/apps/web/frontend
+        run: pnpm audit --audit-level=high
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      # `dotnet list package --vulnerable` exits 0 even when it finds vulnerable
+      # packages — it only prints them — so the vulnerability text itself is
+      # what fails the step.
+      - name: .NET dependency audit (fails on vulnerable packages — G-CICD-02)
+        run: |
+          for proj in src/apps/web/backend; do
+            dotnet restore "$proj"
+            output=$(dotnet list "$proj" package --vulnerable --include-transitive 2>&1)
+            echo "$output"
+            if echo "$output" | grep -qi "has the following vulnerable packages"; then
+              echo "❌ Vulnerable package(s) found in $proj"
+              exit 1
+            fi
+          done

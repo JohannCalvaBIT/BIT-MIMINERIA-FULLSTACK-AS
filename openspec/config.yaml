@@ -1,0 +1,85 @@
+schema: spec-driven
+
+# Contexto inyectado por BIT Developer Framework (bit init).
+# Se antepone a las instrucciones de TODOS los artefactos de OpenSpec.
+context: |
+  Proyecto generado con BIT Developer Framework.
+
+  Idioma: todo el contenido en prosa de los artefactos de OpenSpec (proposal.md,
+  specs/**/*.md, design.md, tasks.md) se escribe en español — el "Why"/"What Changes",
+  las descripciones de "Purpose" y de cada requirement, el contenido de "Context",
+  "Decisions", "Risks / Trade-offs", y la descripción de cada tarea.
+  ÚNICA excepción, porque el motor de OpenSpec la parsea de forma literal y traducirla
+  rompe `bit validate`/`bit archive`: los encabezados de sección ("## Purpose",
+  "## Requirements", "## Why", "## What Changes", "## ADDED/MODIFIED/REMOVED/RENAMED
+  Requirements"), "### Requirement: <nombre>", "#### Scenario: <nombre>", las palabras
+  normativas SHALL/MUST, las etiquetas WHEN/THEN/AND de los escenarios, y FROM:/TO: en
+  requirements renombrados se mantienen exactamente en inglés — el <nombre> que sigue a
+  esos encabezados sí se traduce. Los nombres kebab-case de capacidades (ej. `user-auth`)
+  se mantienen en inglés/kebab-case técnico, como indica el propio schema.
+
+  Los guardrails en .github/governance/guardrails/ son VINCULANTES: ninguna propuesta,
+  spec, diseño o tarea puede contradecirlos. Léelos antes de generar cualquier artefacto.
+
+  Guardrails que aplican a este proyecto:
+  - .github/governance/guardrails/guardrails-01-global.md — Naming, security, dependencias, métricas, desarrollo local emulado y paridad con Azure (G-GLOBAL-08)
+  - .github/governance/guardrails/guardrails-09-devops-cicd.md — Terraform (IaC, ⏸️ diferido), pipeline CI/CD, rollback
+  - .github/governance/guardrails/guardrails-11-testing.md — Pirámide de testing, cobertura mínima, exit criteria
+  - .github/governance/guardrails/guardrails-02-web-frontend.md — Angular 20 (zoneless, OnPush, signals)
+  - .github/governance/guardrails/guardrails-03-web-backend.md — .NET 10 backend: Hexagonal + CQRS + MediatR
+  - .github/governance/guardrails/guardrails-10-database-modeling.md — Modelado ER y migraciones (Script-Only)
+
+  Technology Lock (no se cambia sin aprobación explícita del owner):
+  - Angular 20 (Zoneless, sin zone.js) + TypeScript 5.8 + Tailwind CSS 4.1 + RxJS 7.8.2
+  - .NET 10
+  - SQL Server 2022 + Entity Framework Core 10 (solo ORM de consulta; migraciones Script-Only)
+  - Infraestructura Azure: App Service, API Management, Service Bus, Azure SQL, Redis, Key Vault, Entra ID
+
+  Architecture Lock:
+  - Web Backend: Hexagonal + CQRS + MediatR (G-WEB-BE-01)
+  - Web Frontend: Zoneless — OnPush obligatorio, signal()/computed() como único disparador de change detection (G-WEB-FE-03)
+  - Infrastructure: Azure PaaS — contenedores/Kubernetes prohibidos como topología de despliegue; Docker sí para dev y test local (Testcontainers, G-TEST-06)
+  - Capas aisladas: Presentation -> Application -> Domain <- Infrastructure
+  - Migraciones: scripts SQL versionados (Script-Only), NO migraciones de EF Core (G-DB-02)
+
+  Naming Lock (G-GLOBAL-01, G-GLOBAL-02):
+  - Archivos kebab-case, clases PascalCase, constantes CONSTANT_CASE
+  - Namespaces/paquetes: Company.Project.Layer.Feature
+  - Ramas: {tipo}/desc-corta-kebab-case (feature|bugfix desde develop, hotfix desde main)
+  - Commits: Conventional Commits (feat:, fix:, docs:, refactor:, test:, chore:)
+
+  Security Lock:
+  - Secretos en Key Vault + Managed Identities; nunca en código, configuración ni variables de entorno
+  - Queries parametrizadas siempre
+  - JWT emitidos por Entra ID; el backend nunca emite ni persiste tokens propios (G-WEB-BE-04)
+  - Correlation ID en todos los servicios (sync y async)
+  - Desarrollo local 100% emulado, sin acceso a Azure: la diferencia local-Azure vive en configuracion y solo en el composition root, nunca en ramas por ambiente dentro del codigo (G-GLOBAL-08)
+
+  Si un cambio entra en conflicto con un guardrail:
+  1. Leer el guardrail completo en .github/governance/guardrails/
+  2. Identificar el código exacto (ej. G-WEB-BE-03)
+  3. NO generar el artefacto que lo viola: detenerse y pedir aprobación explícita citando el código
+
+# Reglas por artefacto — aditivas a las del schema.
+rules:
+  proposal:
+    - "Escribir todo el contenido en prosa en español; conservar en inglés únicamente los encabezados de sección y las palabras clave que el motor de OpenSpec parsea de forma literal (## Purpose, ## Requirements, ## Why, ## What Changes, ### Requirement:, #### Scenario:, SHALL/MUST, WHEN/THEN/AND, ADDED/MODIFIED/REMOVED/RENAMED Requirements, FROM:/TO:)"
+    - "Nombrar los guardrails que aplican al cambio, con su código (ej. G-WEB-BE-01)"
+    - "Si el cambio toca una versión o tecnología del Technology Lock, marcarlo explícitamente como que requiere aprobación del owner antes de implementar"
+    - "No proponer contenedores ni Kubernetes como topología de despliegue, ni un proveedor cloud distinto de Azure (Docker para dev/test local sí está permitido)"
+  specs:
+    - "Escribir todo el contenido en prosa en español; conservar en inglés únicamente los encabezados de sección y las palabras clave que el motor de OpenSpec parsea de forma literal (## Purpose, ## Requirements, ## Why, ## What Changes, ### Requirement:, #### Scenario:, SHALL/MUST, WHEN/THEN/AND, ADDED/MODIFIED/REMOVED/RENAMED Requirements, FROM:/TO:)"
+    - "Cada requirement gobernado por un guardrail debe citar su código en el texto del requirement"
+    - "No especificar comportamiento que contradiga el Technology Lock ni el Architecture Lock"
+  design:
+    - "Escribir todo el contenido en prosa en español; conservar en inglés únicamente los encabezados de sección y las palabras clave que el motor de OpenSpec parsea de forma literal (## Purpose, ## Requirements, ## Why, ## What Changes, ### Requirement:, #### Scenario:, SHALL/MUST, WHEN/THEN/AND, ADDED/MODIFIED/REMOVED/RENAMED Requirements, FROM:/TO:)"
+    - "Respetar el aislamiento de capas: Presentation -> Application -> Domain <- Infrastructure"
+    - "Citar el código de guardrail que respalda cada decisión arquitectónica"
+    - "Secretos vía Key Vault + Managed Identities; nunca connection strings en código o configuración"
+    - "Construir los clientes de recursos externos solo en el composition root, decidiendo por configuración; prohibido ramificar credenciales con IHostEnvironment fuera de ahí (G-GLOBAL-08)"
+    - "Frontend Angular: componentes con OnPush y estado en signals — no introducir zone.js (G-WEB-FE-03)"
+    - "Cambios de base de datos: scripts SQL versionados (Script-Only), no migraciones de EF Core (G-DB-02)"
+  tasks:
+    - "Escribir todo el contenido en prosa en español; conservar en inglés únicamente los encabezados de sección y las palabras clave que el motor de OpenSpec parsea de forma literal (## Purpose, ## Requirements, ## Why, ## What Changes, ### Requirement:, #### Scenario:, SHALL/MUST, WHEN/THEN/AND, ADDED/MODIFIED/REMOVED/RENAMED Requirements, FROM:/TO:)"
+    - "Incluir el código de guardrail aplicable en cada tarea que esté gobernada por uno"
+    - "Incluir las tareas de testing necesarias para cumplir la cobertura mínima de guardrails-11-testing.md"

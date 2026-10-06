@@ -1,0 +1,41 @@
+# Documentos de negocio del cliente (G-GLOBAL-03)
+# bit init crea esta carpeta y la documentación indica poner ahí los DEF del
+# cliente, así que el .docx original, el .md que produce 'bit convert' y las
+# imágenes extraídas quedan fuera de git por defecto. Sin esta regla, un
+# 'git add .' sube documentación confidencial sin que nadie lo note.
+docs/def/requisitosnegocio/
+
+# Environment & secrets (G-GLOBAL-03 — never commit these)
+.env
+.env.local
+.env.*.local
+*.pfx
+*.pem
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Dependencies
+node_modules/
+
+# Infrastructure (Terraform — G-CICD-01)
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+
+# Angular (src/apps/web/frontend)
+dist/
+.angular/
+*.log
+
+# .NET (src/apps/web/backend, src/apps/integracion)
+bin/
+obj/
+*.user
+*.suo

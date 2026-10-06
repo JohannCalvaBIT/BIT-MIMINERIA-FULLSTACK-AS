@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bit usage ingest --from-hook",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

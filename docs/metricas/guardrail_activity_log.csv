@@ -1,0 +1,2 @@
+fecha,proyecto,template_id,rol,actividad,codigo_guardrail,herramienta,tiempo_estimado_min,tiempo_real_min,ahorro_min,resultado,observaciones
+2026-07-16,demo,web,Developer Backend,Implementar endpoint de casos (ejemplo — usa `bit metrics` para registrar filas reales),G-WEB-BE-03,Copilot,120,75,45,OK,Sin bloqueadores
