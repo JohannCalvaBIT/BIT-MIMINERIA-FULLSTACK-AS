@@ -39,3 +39,6 @@ bin/
 obj/
 *.user
 *.suo
+
+# Config local de Claude Code (no subir)
+.claude/settings.local.json
