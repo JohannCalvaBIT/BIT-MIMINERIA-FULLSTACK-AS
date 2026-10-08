@@ -76,7 +76,7 @@ state_file() { echo "$STATE_DIR/${1}__${2}.state"; }
 
 # ---------- subcomandos ----------
 
-cmd_version() { echo "bit (stub) 0.2.0 — reemplazo de pruebas, no es el binario real de BDF"; }
+cmd_version() { echo "bit (stub) 0.2.1 — reemplazo de pruebas, no es el binario real de BDF"; }
 
 cmd_exec_start() {
   # bit exec start --command <c> --change <n> --tool <t> [--model <m>]
@@ -132,14 +132,15 @@ cmd_exec_end() {
     if [[ "$log_activity" -eq 1 ]]; then
       mkdir -p "$(dirname "$ACTIVITY_LOG")"
       if [[ ! -f "$ACTIVITY_LOG" ]]; then
-        echo "fecha,proyecto,cambio,guardrail,herramienta,tiempo_estimado_min,tiempo_real_min,ahorro_min,resultado,observaciones" > "$ACTIVITY_LOG"
+        echo "fecha,proyecto,template_id,rol,actividad,codigo_guardrail,herramienta,tiempo_estimado_min,tiempo_real_min,ahorro_min,resultado,observaciones" > "$ACTIVITY_LOG"
       fi
       local real_min="" ahorro=""
       if [[ -n "$start_epoch" ]]; then
         real_min=$(awk -v s="$start_epoch" -v e="$end_epoch" 'BEGIN{printf "%.1f",(e-s)/60}')
         ahorro=$(awk -v est="$estimated_min" -v r="$real_min" 'BEGIN{printf "%.1f",est-r}')
       fi
-      echo "$(date -u +%F),agentsky-sandbox,$(csv_field "$change"),$(csv_field "$guardrail"),bit-stub,${estimated_min},${real_min},${ahorro},$(csv_field "$result"),$(csv_field "estimado_por_agente;real=pared_exec_start_a_end_del_stub;rol=${role};actividad=${activity}")" >> "$ACTIVITY_LOG"
+      local tool="${BIT_TOOL:-codex}"
+      echo "$(date -u +%F),BIT-MIMINERIA,web,$(csv_field "$role"),$(csv_field "${activity:-$command $change}"),$(csv_field "$guardrail"),${tool},${estimated_min},${real_min},${ahorro},$(csv_field "$result"),$(csv_field "fuente=bit-stub;cambio=${change};estimado_por_agente;real=pared_exec_start_a_end_del_stub")" >> "$ACTIVITY_LOG"
     fi
     rm -f "$sf"
   } || err "no se pudo registrar exec end (no bloquea)"
