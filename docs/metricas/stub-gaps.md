@@ -23,3 +23,8 @@
 - **13.5 / 13.6 (e2e)**: se escribieron specs Playwright en `tests/e2e/tests/catalogs.spec.ts`,
   pero no se ejecutan (requieren backend + SQL Server). El flujo bloqueado está cubierto por el
   indicador `En uso` y botones deshabilitados en la suite de la UI.
+- **15.1 (smoke test Azure)**: no ejecutable sin Azure/Managed Identity.
+- **15.2 (run-migrations.ps1 en staging)**: no ejecutable sin SQL Server/staging.
+- **15.3**: duplica 6.4 (`v001_rollback.sql` ya creado); no se marca para no duplicar progreso.
+- **15.4 (App Insights)**: no ejecutable sin Azure/App Insights.
+- **15.5**: cubierto por `bit exec end --log-activity` y `guardrail_activity_log.csv`.

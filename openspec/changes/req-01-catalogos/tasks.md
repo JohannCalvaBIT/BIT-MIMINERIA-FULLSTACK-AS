@@ -127,8 +127,8 @@
 
 ## 14. Documentación y validación
 
-- [ ] 14.1 Documentar la arquitectura CQRS + MediatR en `docs/architecture/req-01-catalogs-architecture.md` con ejemplos
-- [ ] 14.2 Crear la documentación de divergencias local/Azure en `docs/divergence-matrix.md` (G-GLOBAL-08)
+- [x] 14.1 Documentar la arquitectura CQRS + MediatR en `docs/architecture/req-01-catalogs-architecture.md` con ejemplos
+- [x] 14.2 Crear la documentación de divergencias local/Azure en `docs/divergence-matrix.md` (G-GLOBAL-08)
 - [ ] 14.3 Ejecutar `bit validate` para validar specs, design y tasks contra guardrails
 - [ ] 14.4 Crear PR con todos los cambios, incluir enlace a proposal/specs/design/tasks en descripción
 
