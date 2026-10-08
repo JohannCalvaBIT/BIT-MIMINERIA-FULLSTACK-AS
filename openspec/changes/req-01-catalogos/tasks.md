@@ -31,34 +31,34 @@
 
 ## 4. Backend - Capa de Infraestructura
 
-- [ ] 4.1 Crear `CatalogDbContext` derivado de DbContext con DbSets para Company, Format, Discipline, AuditLog (G-WEB-BE-03)
-- [ ] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
-- [ ] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
-- [ ] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
-- [ ] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
-- [ ] 4.6 Registrar servicios en composition root (`Program.cs`): repositories, DbContext, handlers MediatR, IUnitOfWork (G-GLOBAL-08)
-- [ ] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
-- [ ] 4.8 Configurar connection string: local (Testcontainers) en `appsettings.Local.json`, Azure SQL en `appsettings.Production.json` con Managed Identity (G-GLOBAL-08)
+- [x] 4.1 Crear `CatalogDbContext` derivado de DbContext con DbSets para Company, Format, Discipline, AuditLog (G-WEB-BE-03)
+- [x] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
+- [x] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
+- [x] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
+- [x] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
+- [x] 4.6 Registrar servicios en composition root (`Program.cs`): repositories, DbContext, handlers MediatR, IUnitOfWork (G-GLOBAL-08)
+- [x] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
+- [x] 4.8 Configurar connection string: local (Testcontainers) en `appsettings.Local.json`, Azure SQL en `appsettings.Production.json` con Managed Identity (G-GLOBAL-08)
 
 ## 5. Backend - Capa de Presentación (API)
 
-- [ ] 5.1 Crear `CatalogController` base con autorización `[Authorize(Roles = "GlobalAdmin")]` (G-GLOBAL-03)
-- [ ] 5.2 Crear endpoints POST `/api/catalogs/companies` (CreateCompanyCommand) con DTO `CreateCompanyDto` (G-WEB-BE-01)
-- [ ] 5.3 Crear endpoints PUT `/api/catalogs/companies/{id}` (UpdateCompanyCommand)
-- [ ] 5.4 Crear endpoints DELETE `/api/catalogs/companies/{id}` (DeleteCompanyCommand)
-- [ ] 5.5 Crear endpoints GET `/api/catalogs/companies` (GetCompaniesQuery, soportar pagination ?skip=0&take=10)
-- [ ] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
-- [ ] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
-- [ ] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
-- [ ] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
+- [x] 5.1 Crear `CatalogController` base con autorización `[Authorize(Roles = "GlobalAdmin")]` (G-GLOBAL-03)
+- [x] 5.2 Crear endpoints POST `/api/catalogs/companies` (CreateCompanyCommand) con DTO `CreateCompanyDto` (G-WEB-BE-01)
+- [x] 5.3 Crear endpoints PUT `/api/catalogs/companies/{id}` (UpdateCompanyCommand)
+- [x] 5.4 Crear endpoints DELETE `/api/catalogs/companies/{id}` (DeleteCompanyCommand)
+- [x] 5.5 Crear endpoints GET `/api/catalogs/companies` (GetCompaniesQuery, soportar pagination ?skip=0&take=10)
+- [x] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
+- [x] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
+- [x] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
+- [x] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
 
 ## 6. Base de Datos - Migraciones SQL
 
-- [ ] 6.1 Crear script `src/apps/web/database/Migrations/v001_create_catalog_tables.sql` que crea tablas `Catalogs.Company`, `Catalogs.Format`, `Catalogs.Discipline` (G-DB-02)
-- [ ] 6.2 Agregar índices UNIQUE en (Catalogs.Company.Code, Catalogs.Company.Description) y equivalentes para Format, Discipline
-- [ ] 6.3 Crear tabla `Audit.CatalogChanges` con columnas: Id, EntityType, EntityId, Action, UserId, Timestamp, OldValue, NewValue (G-GLOBAL-06)
-- [ ] 6.4 Crear script `src/apps/web/database/Migrations/v001_rollback.sql` que revierte v001
-- [ ] 6.5 Crear script de deployment `src/apps/web/database/run-migrations.ps1` que ejecuta scripts SQL en orden (G-DB-02)
+- [x] 6.1 Crear script `src/apps/web/database/Migrations/v001_create_catalog_tables.sql` que crea tablas `Catalogs.Company`, `Catalogs.Format`, `Catalogs.Discipline` (G-DB-02)
+- [x] 6.2 Agregar índices UNIQUE en (Catalogs.Company.Code, Catalogs.Company.Description) y equivalentes para Format, Discipline
+- [x] 6.3 Crear tabla `Audit.CatalogChanges` con columnas: Id, EntityType, EntityId, Action, UserId, Timestamp, OldValue, NewValue (G-GLOBAL-06)
+- [x] 6.4 Crear script `src/apps/web/database/Migrations/v001_rollback.sql` que revierte v001
+- [x] 6.5 Crear script de deployment `src/apps/web/database/run-migrations.ps1` que ejecuta scripts SQL en orden (G-DB-02)
 
 ## 7. Frontend - Estructura de componentes
 
