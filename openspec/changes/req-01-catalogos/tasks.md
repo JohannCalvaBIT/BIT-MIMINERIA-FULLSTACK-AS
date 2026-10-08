@@ -18,16 +18,16 @@
 
 ## 3. Backend - Capa de Aplicación (CQRS + MediatR)
 
-- [ ] 3.1 Crear comando `CreateCompanyCommand` con propiedades Code, Description (G-WEB-BE-01)
-- [ ] 3.2 Crear command handler `CreateCompanyCommandHandler` que valida duplicidad, crea agregado, publica evento (G-WEB-BE-01)
-- [ ] 3.3 Crear comando `UpdateCompanyCommand` y handler correspondiente (permitir edición de Code solo si no está en uso, siempre Description)
-- [ ] 3.4 Crear comando `DeleteCompanyCommand` y handler correspondiente (validar que no esté en uso)
-- [ ] 3.5 Crear equivalentes de commands para `Format` y `Discipline` (6 commands totales: 3x Create, 3x Update, 3x Delete)
-- [ ] 3.6 Crear query `GetCompaniesQuery` y handler que retorna lista paginada (G-WEB-BE-01)
-- [ ] 3.7 Crear query `SearchCompaniesQuery` y handler que filtra por Code/Description (case-insensitive)
-- [ ] 3.8 Crear equivalentes de queries para `Format` y `Discipline` (6 queries totales)
-- [ ] 3.9 Implementar interfaz `IUnitOfWork` para manejar transacciones
-- [ ] 3.10 Crear validadores FluentValidation para cada comando (anti-duplicado verificando repo)
+- [x] 3.1 Crear comando `CreateCompanyCommand` con propiedades Code, Description (G-WEB-BE-01)
+- [x] 3.2 Crear command handler `CreateCompanyCommandHandler` que valida duplicidad, crea agregado, publica evento (G-WEB-BE-01)
+- [x] 3.3 Crear comando `UpdateCompanyCommand` y handler correspondiente (permitir edición de Code solo si no está en uso, siempre Description)
+- [x] 3.4 Crear comando `DeleteCompanyCommand` y handler correspondiente (validar que no esté en uso)
+- [x] 3.5 Crear equivalentes de commands para `Format` y `Discipline` (6 commands totales: 3x Create, 3x Update, 3x Delete)
+- [x] 3.6 Crear query `GetCompaniesQuery` y handler que retorna lista paginada (G-WEB-BE-01)
+- [x] 3.7 Crear query `SearchCompaniesQuery` y handler que filtra por Code/Description (case-insensitive)
+- [x] 3.8 Crear equivalentes de queries para `Format` y `Discipline` (6 queries totales)
+- [x] 3.9 Implementar interfaz `IUnitOfWork` para manejar transacciones
+- [x] 3.10 Crear validadores FluentValidation para cada comando (anti-duplicado verificando repo)
 
 ## 4. Backend - Capa de Infraestructura
 
