@@ -1,4 +1,4 @@
-using Application.Catalogs.Abstractions;
+
 using Domain.Catalogs.Entities;
 using Domain.Catalogs.Exceptions;
 using Domain.Catalogs.ValueObjects;
@@ -8,9 +8,9 @@ namespace Application.Catalogs.Commands;
 
 public sealed class CreateDisciplineCommandHandler : IRequestHandler<CreateDisciplineCommand, Guid>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public CreateDisciplineCommandHandler(IUnitOfWork unitOfWork)
+    public CreateDisciplineCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -41,9 +41,9 @@ public sealed class CreateDisciplineCommandHandler : IRequestHandler<CreateDisci
 
 public sealed class UpdateDisciplineCommandHandler : IRequestHandler<UpdateDisciplineCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public UpdateDisciplineCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateDisciplineCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -82,9 +82,9 @@ public sealed class UpdateDisciplineCommandHandler : IRequestHandler<UpdateDisci
 
 public sealed class DeleteDisciplineCommandHandler : IRequestHandler<DeleteDisciplineCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public DeleteDisciplineCommandHandler(IUnitOfWork unitOfWork)
+    public DeleteDisciplineCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

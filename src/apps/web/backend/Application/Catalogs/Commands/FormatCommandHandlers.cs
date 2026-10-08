@@ -1,4 +1,4 @@
-using Application.Catalogs.Abstractions;
+
 using Domain.Catalogs.Entities;
 using Domain.Catalogs.Exceptions;
 using Domain.Catalogs.ValueObjects;
@@ -8,9 +8,9 @@ namespace Application.Catalogs.Commands;
 
 public sealed class CreateFormatCommandHandler : IRequestHandler<CreateFormatCommand, Guid>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public CreateFormatCommandHandler(IUnitOfWork unitOfWork)
+    public CreateFormatCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -41,9 +41,9 @@ public sealed class CreateFormatCommandHandler : IRequestHandler<CreateFormatCom
 
 public sealed class UpdateFormatCommandHandler : IRequestHandler<UpdateFormatCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public UpdateFormatCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateFormatCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -82,9 +82,9 @@ public sealed class UpdateFormatCommandHandler : IRequestHandler<UpdateFormatCom
 
 public sealed class DeleteFormatCommandHandler : IRequestHandler<DeleteFormatCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public DeleteFormatCommandHandler(IUnitOfWork unitOfWork)
+    public DeleteFormatCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

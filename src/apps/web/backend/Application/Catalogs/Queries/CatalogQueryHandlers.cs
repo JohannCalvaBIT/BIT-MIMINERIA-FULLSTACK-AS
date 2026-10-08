@@ -1,4 +1,4 @@
-using Application.Catalogs.Abstractions;
+
 using Application.Catalogs.DTOs;
 using MediatR;
 
@@ -6,9 +6,9 @@ namespace Application.Catalogs.Queries;
 
 public sealed class GetCompaniesQueryHandler : IRequestHandler<GetCompaniesQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public GetCompaniesQueryHandler(IUnitOfWork unitOfWork)
+    public GetCompaniesQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -38,9 +38,9 @@ public sealed class GetCompaniesQueryHandler : IRequestHandler<GetCompaniesQuery
 
 public sealed class SearchCompaniesQueryHandler : IRequestHandler<SearchCompaniesQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public SearchCompaniesQueryHandler(IUnitOfWork unitOfWork)
+    public SearchCompaniesQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -63,9 +63,9 @@ public sealed class SearchCompaniesQueryHandler : IRequestHandler<SearchCompanie
 
 public sealed class GetFormatsQueryHandler : IRequestHandler<GetFormatsQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public GetFormatsQueryHandler(IUnitOfWork unitOfWork)
+    public GetFormatsQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -87,9 +87,9 @@ public sealed class GetFormatsQueryHandler : IRequestHandler<GetFormatsQuery, Pa
 
 public sealed class SearchFormatsQueryHandler : IRequestHandler<SearchFormatsQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public SearchFormatsQueryHandler(IUnitOfWork unitOfWork)
+    public SearchFormatsQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -112,9 +112,9 @@ public sealed class SearchFormatsQueryHandler : IRequestHandler<SearchFormatsQue
 
 public sealed class GetDisciplinesQueryHandler : IRequestHandler<GetDisciplinesQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public GetDisciplinesQueryHandler(IUnitOfWork unitOfWork)
+    public GetDisciplinesQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -136,9 +136,9 @@ public sealed class GetDisciplinesQueryHandler : IRequestHandler<GetDisciplinesQ
 
 public sealed class SearchDisciplinesQueryHandler : IRequestHandler<SearchDisciplinesQuery, PagedResult<CatalogItemDto>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public SearchDisciplinesQueryHandler(IUnitOfWork unitOfWork)
+    public SearchDisciplinesQueryHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
