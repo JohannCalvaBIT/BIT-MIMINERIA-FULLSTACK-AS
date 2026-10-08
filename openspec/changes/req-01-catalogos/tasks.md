@@ -62,12 +62,12 @@
 
 ## 7. Frontend - Estructura de componentes
 
-- [ ] 7.1 Crear componente `CatalogManagementComponent` en `src/apps/web/frontend/src/app/security/catalogs/` con ChangeDetectionStrategy.OnPush, signal() para estado (G-WEB-FE-03)
-- [ ] 7.2 Crear subcomponente `CatalogSelectorComponent` en `src/apps/web/frontend/src/app/security/catalogs/components/`
-- [ ] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
-- [ ] 7.4 Crear subcomponente `CatalogFormComponent` para crear/editar registros (reactive forms, OnPush)
-- [ ] 7.5 Crear servicio `CatalogService` en `src/apps/web/frontend/src/app/security/catalogs/services/` con métodos create/update/delete/getList/search (RxJS 7.8)
-- [ ] 7.6 Crear tipos TypeScript en `src/apps/web/frontend/src/app/security/catalogs/shared/`: `CompanyDto`, `FormatDto`, `DisciplineDto`, `CatalogType` enum
+- [x] 7.1 Crear componente `CatalogManagementComponent` en `src/apps/web/frontend/src/app/security/catalogs/` con ChangeDetectionStrategy.OnPush, signal() para estado (G-WEB-FE-03)
+- [x] 7.2 Crear subcomponente `CatalogSelectorComponent` en `src/apps/web/frontend/src/app/security/catalogs/components/`
+- [x] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
+- [x] 7.4 Crear subcomponente `CatalogFormComponent` para crear/editar registros (reactive forms, OnPush)
+- [x] 7.5 Crear servicio `CatalogService` en `src/apps/web/frontend/src/app/security/catalogs/services/` con métodos create/update/delete/getList/search (RxJS 7.8)
+- [x] 7.6 Crear tipos TypeScript en `src/apps/web/frontend/src/app/security/catalogs/shared/`: `CompanyDto`, `FormatDto`, `DisciplineDto`, `CatalogType` enum
 
 ## 8. Frontend - Implementación de formularios y lógica
 
