@@ -1,4 +1,4 @@
-using Application.Catalogs.Abstractions;
+
 using Domain.Catalogs.Entities;
 using Domain.Catalogs.Exceptions;
 using Domain.Catalogs.ValueObjects;
@@ -8,9 +8,9 @@ namespace Application.Catalogs.Commands;
 
 public sealed class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyCommand, Guid>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public CreateCompanyCommandHandler(IUnitOfWork unitOfWork)
+    public CreateCompanyCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -41,9 +41,9 @@ public sealed class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyC
 
 public sealed class UpdateCompanyCommandHandler : IRequestHandler<UpdateCompanyCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public UpdateCompanyCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateCompanyCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
@@ -82,9 +82,9 @@ public sealed class UpdateCompanyCommandHandler : IRequestHandler<UpdateCompanyC
 
 public sealed class DeleteCompanyCommandHandler : IRequestHandler<DeleteCompanyCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Domain.Catalogs.Interfaces.IUnitOfWork _unitOfWork;
 
-    public DeleteCompanyCommandHandler(IUnitOfWork unitOfWork)
+    public DeleteCompanyCommandHandler(Domain.Catalogs.Interfaces.IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

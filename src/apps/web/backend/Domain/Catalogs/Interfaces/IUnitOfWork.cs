@@ -1,6 +1,6 @@
 using Domain.Catalogs.Interfaces;
 
-namespace Application.Catalogs.Abstractions;
+namespace Domain.Catalogs.Interfaces;
 
 public interface IUnitOfWork : IAsyncDisposable
 {
