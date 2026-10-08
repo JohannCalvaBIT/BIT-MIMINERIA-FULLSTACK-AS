@@ -1,2 +1,3 @@
 fecha,proyecto,template_id,rol,actividad,codigo_guardrail,herramienta,tiempo_estimado_min,tiempo_real_min,ahorro_min,resultado,observaciones
 2026-07-16,demo,web,Developer Backend,Implementar endpoint de casos (ejemplo — usa `bit metrics` para registrar filas reales),G-WEB-BE-03,Copilot,120,75,45,OK,Sin bloqueadores
+2026-10-08,BIT-MIMINERIA,web,"Developer Backend","Implementar CRUD de catálogos globales (backend CQRS, SQL, frontend Angular, tests)","G-WEB-BE-01",codex,240,32.5,207.5,"OK","fuente=bit-stub;cambio=req-01-catalogos;estimado_por_agente;real=pared_exec_start_a_end_del_stub"
