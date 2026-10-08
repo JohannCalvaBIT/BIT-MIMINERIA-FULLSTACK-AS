@@ -15,3 +15,8 @@
   y `docs/metricas/guardrail_activity_log.csv`.
 - **15.3**: duplica la tarea 6.4 (`v001_rollback.sql`), ya implementada en la
   Sección 6; no se marca una segunda vez para no falsear progreso.
+- **11.1–11.7 (integración)**: se escribió `Tests/Integration/CatalogIntegrationTests.cs`
+  y `CatalogTestcontainersFixture.cs` (Testcontainers + repositorio) y compilan, pero no
+  se ejecutan porque el sandbox no tiene Docker ni SQL Server. Quedan con `[Explicit]`.
+- **12.1–12.5 (endpoints)**: se añadió `Tests/Api/CatalogApiTests.cs` con `WebApplicationFactory`,
+  pero no se ejecuta por la misma falta de infraestructura. Queda `[Explicit]`.
