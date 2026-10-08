@@ -1,9 +1,9 @@
 ## 1. Estructura de carpetas y configuración base
 
-- [ ] 1.1 Crear estructura de carpetas backend: `src/apps/web/backend/Domain/Catalogs`, `src/apps/web/backend/Application/Catalogs`, `src/apps/web/backend/Infrastructure/Catalogs`, `src/apps/web/backend/Presentation/Catalogs` (G-WEB-BE-01)
-- [ ] 1.2 Crear estructura de carpetas frontend: `src/apps/web/frontend/src/app/security/catalogs/{shared,components,services}` (G-GLOBAL-01)
-- [ ] 1.3 Actualizar `appsettings.json` con cadena de conexión de base de datos (local Testcontainers, Azure SQL en producción)
-- [ ] 1.4 Configurar Docker Compose o Testcontainers para levantar SQL Server local en desarrollo (G-GLOBAL-08, G-TEST-06)
+- [x] 1.1 Crear estructura de carpetas backend: `src/apps/web/backend/Domain/Catalogs`, `src/apps/web/backend/Application/Catalogs`, `src/apps/web/backend/Infrastructure/Catalogs`, `src/apps/web/backend/Presentation/Catalogs` (G-WEB-BE-01)
+- [x] 1.2 Crear estructura de carpetas frontend: `src/apps/web/frontend/src/app/security/catalogs/{shared,components,services}` (G-GLOBAL-01)
+- [x] 1.3 Actualizar `appsettings.json` con cadena de conexión de base de datos (local Testcontainers, Azure SQL en producción)
+- [x] 1.4 Configurar Docker Compose o Testcontainers para levantar SQL Server local en desarrollo (G-GLOBAL-08, G-TEST-06)
 
 ## 2. Backend - Capa de Dominio
 
