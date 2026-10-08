@@ -7,14 +7,14 @@
 
 ## 2. Backend - Capa de Dominio
 
-- [ ] 2.1 Crear clase `Company` (agregado raíz) con propiedades Code, Description, CreatedAt, ModifiedAt (G-WEB-BE-01)
-- [ ] 2.2 Crear clase `Format` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
-- [ ] 2.3 Crear clase `Discipline` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
-- [ ] 2.4 Implementar value object `CatalogCode` para encapsular validación de código (length, caracteres permitidos)
-- [ ] 2.5 Implementar value object `CatalogDescription` para encapsular validación de descripción
-- [ ] 2.6 Crear excepciones de dominio: `DuplicateCodeException`, `DuplicateDescriptionException`, `CatalogInUseException` (G-WEB-BE-03)
-- [ ] 2.7 Crear eventos de dominio: `CompanyCreatedEvent`, `CompanyUpdatedEvent`, `CompanyDeletedEvent` (y equivalentes para Format, Discipline)
-- [ ] 2.8 Crear interfaces de repositorio: `ICompanyRepository`, `IFormatRepository`, `IDisciplineRepository` en capa de dominio
+- [x] 2.1 Crear clase `Company` (agregado raíz) con propiedades Code, Description, CreatedAt, ModifiedAt (G-WEB-BE-01)
+- [x] 2.2 Crear clase `Format` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
+- [x] 2.3 Crear clase `Discipline` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
+- [x] 2.4 Implementar value object `CatalogCode` para encapsular validación de código (length, caracteres permitidos)
+- [x] 2.5 Implementar value object `CatalogDescription` para encapsular validación de descripción
+- [x] 2.6 Crear excepciones de dominio: `DuplicateCodeException`, `DuplicateDescriptionException`, `CatalogInUseException` (G-WEB-BE-03)
+- [x] 2.7 Crear eventos de dominio: `CompanyCreatedEvent`, `CompanyUpdatedEvent`, `CompanyDeletedEvent` (y equivalentes para Format, Discipline)
+- [x] 2.8 Crear interfaces de repositorio: `ICompanyRepository`, `IFormatRepository`, `IDisciplineRepository` en capa de dominio
 
 ## 3. Backend - Capa de Aplicación (CQRS + MediatR)
 
