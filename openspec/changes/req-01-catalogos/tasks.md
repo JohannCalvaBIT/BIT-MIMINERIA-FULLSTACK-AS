@@ -82,10 +82,10 @@
 
 ## 9. Frontend - Acceso y autenticación
 
-- [ ] 9.1 Crear guard `GlobalAdminGuard` en `src/apps/web/frontend/src/app/security/catalogs/shared/` que verifica si el usuario tiene rol "GlobalAdmin" (leer claims del token)
-- [ ] 9.2 Proteger ruta `/security/catalogs` con `GlobalAdminGuard` en el routing module
-- [ ] 9.3 Ocultar enlace a "Catálogos" en menú si usuario no tiene rol GlobalAdmin (UX mejora)
-- [ ] 9.4 Enviar correlation ID en headers de requests HTTP (propagar desde el frontend) (G-GLOBAL-06)
+- [x] 9.1 Crear guard `GlobalAdminGuard` en `src/apps/web/frontend/src/app/security/catalogs/shared/` que verifica si el usuario tiene rol "GlobalAdmin" (leer claims del token)
+- [x] 9.2 Proteger ruta `/security/catalogs` con `GlobalAdminGuard` en el routing module
+- [x] 9.3 Ocultar enlace a "Catálogos" en menú si usuario no tiene rol GlobalAdmin (UX mejora)
+- [x] 9.4 Enviar correlation ID en headers de requests HTTP (propagar desde el frontend) (G-GLOBAL-06)
 
 ## 10. Testing - Unidad (Backend)
 
