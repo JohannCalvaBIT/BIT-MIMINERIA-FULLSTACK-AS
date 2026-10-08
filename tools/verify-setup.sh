@@ -2,7 +2,8 @@
 # verify-setup.sh — comprueba el entorno del sandbox y deja un reporte legible.
 # No cambia nada. Uso: bash tools/verify-setup.sh
 ok=0; bad=0
-chk() { local n="$1"; shift; local out; if out=$("$@" 2>&1 | head -n1); then echo "OK   $n: $out"; ok=$((ok+1)); else echo "FALLA $n"; bad=$((bad+1)); fi; }
+chk() { local n="$1"; shift; local out rc; out=$("$@" 2>&1); rc=$?; out=$(printf '%s' "$out" | head -n1)
+  if [ "$rc" -eq 0 ]; then echo "OK   $n: $out"; ok=$((ok+1)); else echo "FALLA $n (rc=$rc): $out"; bad=$((bad+1)); fi; }
 chk "git"        git --version
 chk "jq"         jq --version
 chk "bit(stub)"  bit --version
@@ -16,6 +17,6 @@ chk "red npm"    bash -c 'curl -sS -o /dev/null -w "%{http_code}" -m 10 https://
 echo "--- extras informativos (no cuentan)"
 command -v docker >/dev/null && echo "docker: presente" || echo "docker: ausente"
 ls -d ~/.codex 2>/dev/null && ls ~/.codex | head || echo "~/.codex: ausente"
-pgrep -af autosave.sh >/dev/null && echo "autosave: corriendo" || echo "autosave: NO corre"
+{ [ -f /tmp/autosave.pid ] && kill -0 "$(cat /tmp/autosave.pid)" 2>/dev/null; } && echo "autosave: corriendo (pid $(cat /tmp/autosave.pid))" || echo "autosave: NO corre"
 [ -f /tmp/autosave.log ] && tail -n3 /tmp/autosave.log
 echo "RESUMEN ok=$ok falla=$bad"
