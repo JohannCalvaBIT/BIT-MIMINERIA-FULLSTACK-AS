@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Presentation.Common;
 using Presentation.Catalogs.Middleware;
 
+public partial class Program;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
