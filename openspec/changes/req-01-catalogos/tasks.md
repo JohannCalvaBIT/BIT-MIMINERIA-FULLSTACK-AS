@@ -42,15 +42,15 @@
 
 ## 5. Backend - Capa de Presentación (API)
 
-- [ ] 5.1 Crear `CatalogController` base con autorización `[Authorize(Roles = "GlobalAdmin")]` (G-GLOBAL-03)
-- [ ] 5.2 Crear endpoints POST `/api/catalogs/companies` (CreateCompanyCommand) con DTO `CreateCompanyDto` (G-WEB-BE-01)
-- [ ] 5.3 Crear endpoints PUT `/api/catalogs/companies/{id}` (UpdateCompanyCommand)
-- [ ] 5.4 Crear endpoints DELETE `/api/catalogs/companies/{id}` (DeleteCompanyCommand)
-- [ ] 5.5 Crear endpoints GET `/api/catalogs/companies` (GetCompaniesQuery, soportar pagination ?skip=0&take=10)
-- [ ] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
-- [ ] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
-- [ ] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
-- [ ] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
+- [x] 5.1 Crear `CatalogController` base con autorización `[Authorize(Roles = "GlobalAdmin")]` (G-GLOBAL-03)
+- [x] 5.2 Crear endpoints POST `/api/catalogs/companies` (CreateCompanyCommand) con DTO `CreateCompanyDto` (G-WEB-BE-01)
+- [x] 5.3 Crear endpoints PUT `/api/catalogs/companies/{id}` (UpdateCompanyCommand)
+- [x] 5.4 Crear endpoints DELETE `/api/catalogs/companies/{id}` (DeleteCompanyCommand)
+- [x] 5.5 Crear endpoints GET `/api/catalogs/companies` (GetCompaniesQuery, soportar pagination ?skip=0&take=10)
+- [x] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
+- [x] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
+- [x] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
+- [x] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
 
 ## 6. Base de Datos - Migraciones SQL
 
