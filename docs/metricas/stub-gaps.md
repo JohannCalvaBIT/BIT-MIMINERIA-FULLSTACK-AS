@@ -20,3 +20,6 @@
   se ejecutan porque el sandbox no tiene Docker ni SQL Server. Quedan con `[Explicit]`.
 - **12.1–12.5 (endpoints)**: se añadió `Tests/Api/CatalogApiTests.cs` con `WebApplicationFactory`,
   pero no se ejecuta por la misma falta de infraestructura. Queda `[Explicit]`.
+- **13.5 / 13.6 (e2e)**: se escribieron specs Playwright en `tests/e2e/tests/catalogs.spec.ts`,
+  pero no se ejecutan (requieren backend + SQL Server). El flujo bloqueado está cubierto por el
+  indicador `En uso` y botones deshabilitados en la suite de la UI.
