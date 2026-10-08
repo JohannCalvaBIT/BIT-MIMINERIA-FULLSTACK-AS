@@ -54,11 +54,11 @@
 
 ## 6. Base de Datos - Migraciones SQL
 
-- [ ] 6.1 Crear script `src/apps/web/database/Migrations/v001_create_catalog_tables.sql` que crea tablas `Catalogs.Company`, `Catalogs.Format`, `Catalogs.Discipline` (G-DB-02)
-- [ ] 6.2 Agregar índices UNIQUE en (Catalogs.Company.Code, Catalogs.Company.Description) y equivalentes para Format, Discipline
-- [ ] 6.3 Crear tabla `Audit.CatalogChanges` con columnas: Id, EntityType, EntityId, Action, UserId, Timestamp, OldValue, NewValue (G-GLOBAL-06)
-- [ ] 6.4 Crear script `src/apps/web/database/Migrations/v001_rollback.sql` que revierte v001
-- [ ] 6.5 Crear script de deployment `src/apps/web/database/run-migrations.ps1` que ejecuta scripts SQL en orden (G-DB-02)
+- [x] 6.1 Crear script `src/apps/web/database/Migrations/v001_create_catalog_tables.sql` que crea tablas `Catalogs.Company`, `Catalogs.Format`, `Catalogs.Discipline` (G-DB-02)
+- [x] 6.2 Agregar índices UNIQUE en (Catalogs.Company.Code, Catalogs.Company.Description) y equivalentes para Format, Discipline
+- [x] 6.3 Crear tabla `Audit.CatalogChanges` con columnas: Id, EntityType, EntityId, Action, UserId, Timestamp, OldValue, NewValue (G-GLOBAL-06)
+- [x] 6.4 Crear script `src/apps/web/database/Migrations/v001_rollback.sql` que revierte v001
+- [x] 6.5 Crear script de deployment `src/apps/web/database/run-migrations.ps1` que ejecuta scripts SQL en orden (G-DB-02)
 
 ## 7. Frontend - Estructura de componentes
 
