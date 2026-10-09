@@ -12,7 +12,7 @@ Este archivo es para agentes que no leen `CLAUDE.md` por defecto (p. ej. Codex).
 - Rutas reales: `src/apps/web/backend/{Domain,Application,Infrastructure,Presentation,Tests}`, `src/apps/web/frontend/src/app/...`, `tests/e2e`.
 
 ## Comandos útiles
-- Backend: `dotnet build src/apps/web/backend/Backend.slnx` y `dotnet test src/apps/web/backend/Backend.slnx`. Hoy `Backend.slnx` NO tiene proyecto de tests: `dotnet test` sale con codigo 0 y sin salida porque no ejecuta nada. Crea el proyecto de tests (NUnit, segun `guardrails-11-testing.md`) en `src/apps/web/backend/Tests/`, agregalo a `Backend.slnx` y comprueba que `dotnet test` muestra un resumen con el numero de pruebas ejecutadas; una salida vacia NO cuenta como pruebas pasadas.
+- Backend: `dotnet build src/apps/web/backend/Backend.slnx` y `dotnet test src/apps/web/backend/Backend.slnx`. El proyecto de tests (NUnit) ya existe en `src/apps/web/backend/Tests/` y esta en `Backend.slnx`. `dotnet test` debe mostrar un resumen con el numero de pruebas ejecutadas; una salida vacia NO cuenta como pruebas pasadas.
 - Frontend (verificado en el sandbox): `pnpm build` y `pnpm install` fallan con `ERR_PNPM_IGNORED_BUILDS` porque pnpm 11 ya no lee `onlyBuiltDependencies`. No cambies `package.json` ni `pnpm-workspace.yaml` en commits. Secuencia que funciona: (1) sobrescribe `src/apps/web/frontend/pnpm-workspace.yaml` con `allowBuilds:` y las lineas `'@parcel/watcher': true`, `esbuild: true`, `lmdb: true`, `msgpackr-extract: true`; (2) `cd src/apps/web/frontend && pnpm install --frozen-lockfile`; (3) restaura el archivo con `git checkout -- src/apps/web/frontend/pnpm-workspace.yaml`; (4) compila con `./node_modules/.bin/ng build` y prueba con `./node_modules/.bin/ng test --watch=false` (Vitest + jsdom; no necesita Chrome). No uses `git add -A`: agrega solo las rutas que cambiaste, para no subir `pnpm-workspace.yaml` ni los logs de metricas por accidente.
 
 ## Trabajar en este entorno (sandbox sin base de datos ni Docker)
@@ -25,3 +25,12 @@ Este archivo es para agentes que no leen `CLAUDE.md` por defecto (p. ej. Codex).
 ## Git
 - Rama de trabajo: la que indique el prompt de la sesión. Commit y `git push origin HEAD` al terminar cada sección de `tasks.md`.
 - Identidad: `noreply@example.com` / `agentsky`. No uses otros correos.
+
+## Definición de hecho (vinculante; prevalece sobre el prompt del agente y sobre el skill)
+1. Una tarea se marca `[x]` solo después de que el comando que la respalda terminó en verde en ESTA sesión. Frontend: `./node_modules/.bin/ng build` y `./node_modules/.bin/ng test --watch=false` (exit 0 y número de tests). Backend: `dotnet build` y `dotnet test` (resumen con número de pruebas mayor que 0).
+2. Cada marca lleva su evidencia en `docs/metricas/verificacion-pasada2.md`: tarea o paso, comando, resultado (exit code y conteos) y hora UTC. Sin fila en ese archivo, no hay marca.
+3. Marca por tarea, no por sección. El orden es: escribir, compilar y probar, marcar, commit, push.
+4. Antes de cada `git add`, ejecuta `git status --short` y agrega solo las rutas que cambiaste. No uses `git add -A` (esto prevalece sobre cualquier instrucción que lo pida). Si la secuencia del frontend dejó `pnpm-workspace.yaml` modificado, restáuralo con `git checkout -- src/apps/web/frontend/pnpm-workspace.yaml` antes de agregar.
+5. Si un comando sigue en rojo tras 3 intentos sobre el mismo error, detén ese ítem, déjalo sin marcar, regístralo en `docs/metricas/stub-gaps.md` (comando, error, intentos) y sigue con otro ítem.
+6. Resumen final: tabla "Verificado / No verificado" con una fila por ítem y el comando que la respalda. `--result OK` en `bit exec end` solo si el build y el test del frontend y del backend pasaron en esta sesión; si no, `FAIL` o `BLOCKED`.
+7. Nunca declares que algo compila o pasa si no ejecutaste el comando en esta sesión.
