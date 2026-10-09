@@ -91,12 +91,12 @@
 
 - [x] 10.1 Crear tests unitarios para `Company` agregado: constructores, métodos de validación, eventos de dominio
 - [x] 10.2 Crear tests unitarios para value objects `CatalogCode`, `CatalogDescription`: validación de length, caracteres
-- [ ] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
-- [ ] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
+- [x] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
+- [x] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
 - [x] 10.5 Crear tests unitarios para `DeleteCompanyCommandHandler`: eliminar no en uso, bloqueo si en uso
-- [ ] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
-- [ ] 10.7 Crear tests unitarios para FluentValidation validators
-- [ ] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
+- [x] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
+- [x] 10.7 Crear tests unitarios para FluentValidation validators
+- [x] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
 
 ## 11. Testing - Integración (Backend)
 

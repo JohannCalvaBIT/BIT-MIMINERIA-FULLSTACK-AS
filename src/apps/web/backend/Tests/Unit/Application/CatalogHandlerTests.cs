@@ -51,8 +51,20 @@ public class CatalogHandlerTests
             return Task.FromResult<IReadOnlyList<Company>>(query.Skip(skip).Take(take).ToList());
         }
 
-        public Task<int> CountSearchAsync(string? code, string? description, CancellationToken cancellationToken = default) =>
-            Task.FromResult(0);
+        public Task<int> CountSearchAsync(string? code, string? description, CancellationToken cancellationToken = default)
+        {
+            IEnumerable<Company> query = _items.Values;
+            if (!string.IsNullOrWhiteSpace(code))
+            {
+                query = query.Where(x => x.Code.Value.Contains(code, StringComparison.OrdinalIgnoreCase));
+            }
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                query = query.Where(x => x.Description.Value.Contains(description, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return Task.FromResult(query.Count());
+        }
 
         public Task<int> GetUsageCountAsync(Guid id, CancellationToken cancellationToken = default) =>
             Task.FromResult(_usage.Contains(id) ? 1 : 0);
@@ -117,6 +129,20 @@ public class CatalogHandlerTests
     }
 
     [Test]
+    public void Create_EmptyCode_Throws()
+    {
+        Assert.ThrowsAsync<ArgumentException>(
+            () => _create.Handle(new CreateCompanyCommand("", "Mi Minería S.A."), CancellationToken.None));
+    }
+
+    [Test]
+    public void Create_TooLongCode_Throws()
+    {
+        Assert.ThrowsAsync<ArgumentException>(
+            () => _create.Handle(new CreateCompanyCommand(new string('a', 151), "Mi Minería S.A."), CancellationToken.None));
+    }
+
+    [Test]
     public async Task Update_WhenInUse_AllowsDescriptionOnly()
     {
         var id = await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
@@ -143,6 +169,28 @@ public class CatalogHandlerTests
     }
 
     [Test]
+    public async Task Update_WhenNotInUse_DuplicateCode_Throws()
+    {
+        var id = await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
+        await _create.Handle(new CreateCompanyCommand("EMP002", "Otra empresa"), CancellationToken.None);
+        var handler = new UpdateCompanyCommandHandler(_uow);
+
+        Assert.ThrowsAsync<DuplicateCodeException>(
+            () => handler.Handle(new UpdateCompanyCommand(id, "EMP002", "Mi Minería S.A."), CancellationToken.None));
+    }
+
+    [Test]
+    public async Task Update_DuplicateDescription_Throws()
+    {
+        var id = await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
+        await _create.Handle(new CreateCompanyCommand("EMP002", "Otra empresa"), CancellationToken.None);
+        var handler = new UpdateCompanyCommandHandler(_uow);
+
+        Assert.ThrowsAsync<DuplicateDescriptionException>(
+            () => handler.Handle(new UpdateCompanyCommand(id, "EMP001", "otra empresa"), CancellationToken.None));
+    }
+
+    [Test]
     public async Task Delete_WhenInUse_Throws()
     {
         var id = await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
@@ -162,5 +210,34 @@ public class CatalogHandlerTests
         await handler.Handle(new DeleteCompanyCommand(id), CancellationToken.None);
 
         Assert.That(await _uow.Companies.GetByIdAsync(id), Is.Null);
+    }
+
+    [Test]
+    public async Task GetCompanies_ReturnsPagedItemsAndUsageFlag()
+    {
+        var firstId = await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
+        await _create.Handle(new CreateCompanyCommand("EMP002", "Otra empresa"), CancellationToken.None);
+        _uow.Companies.MarkInUse(firstId);
+        var handler = new GetCompaniesQueryHandler(_uow);
+
+        var result = await handler.Handle(new GetCompaniesQuery(0, 10), CancellationToken.None);
+
+        Assert.That(result.Total, Is.EqualTo(2));
+        Assert.That(result.Items, Has.Count.EqualTo(2));
+        Assert.That(result.Items.Single(x => x.Id == firstId).IsInUse, Is.True);
+    }
+
+    [Test]
+    public async Task SearchCompanies_FiltersByCodeAndDescription()
+    {
+        await _create.Handle(new CreateCompanyCommand("EMP001", "Mi Minería S.A."), CancellationToken.None);
+        await _create.Handle(new CreateCompanyCommand("EMP002", "Otra empresa"), CancellationToken.None);
+        var handler = new SearchCompaniesQueryHandler(_uow);
+
+        var byCode = await handler.Handle(new SearchCompaniesQuery("emp002", null, 0, 10), CancellationToken.None);
+        var byDescription = await handler.Handle(new SearchCompaniesQuery(null, "minería", 0, 10), CancellationToken.None);
+
+        Assert.That(byCode.Items.Single().Code, Is.EqualTo("EMP002"));
+        Assert.That(byDescription.Items.Single().Code, Is.EqualTo("EMP001"));
     }
 }
