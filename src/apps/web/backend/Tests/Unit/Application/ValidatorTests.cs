@@ -31,4 +31,37 @@ public class ValidatorTests
         var result = validator.TestValidate(new CreateCompanyCommand("EMP001", ""));
         result.ShouldHaveValidationErrorFor(x => x.Description);
     }
+
+    [Test]
+    public void UpdateCompanyCommandValidator_EmptyId_Fails()
+    {
+        var validator = new UpdateCompanyCommandValidator();
+        var result = validator.TestValidate(new UpdateCompanyCommand(Guid.Empty, "EMP001", "Descripción"));
+        result.ShouldHaveValidationErrorFor(x => x.Id);
+    }
+
+    [Test]
+    public void DeleteCompanyCommandValidator_EmptyId_Fails()
+    {
+        var validator = new DeleteCompanyCommandValidator();
+        var result = validator.TestValidate(new DeleteCompanyCommand(Guid.Empty));
+        result.ShouldHaveValidationErrorFor(x => x.Id);
+    }
+
+    [Test]
+    public void CreateFormatCommandValidator_ValidInput_Passes()
+    {
+        var validator = new CreateFormatCommandValidator();
+        var result = validator.TestValidate(new CreateFormatCommand("FMT001", "Video"));
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
+    [Test]
+    public void UpdateDisciplineCommandValidator_TooLongDescription_Fails()
+    {
+        var validator = new UpdateDisciplineCommandValidator();
+        var result = validator.TestValidate(
+            new UpdateDisciplineCommand(Guid.NewGuid(), "DSC001", new string('d', 251)));
+        result.ShouldHaveValidationErrorFor(x => x.Description);
+    }
 }

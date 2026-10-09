@@ -35,9 +35,9 @@
 - [ ] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
 - [ ] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
 - [ ] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
-- [ ] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
+- [x] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
 - [x] 4.6 Registrar servicios en composition root (`Program.cs`): repositories, DbContext, handlers MediatR, IUnitOfWork (G-GLOBAL-08)
-- [ ] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
+- [x] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
 - [x] 4.8 Configurar connection string: local (Testcontainers) en `appsettings.Local.json`, Azure SQL en `appsettings.Production.json` con Managed Identity (G-GLOBAL-08)
 
 ## 5. Backend - Capa de Presentación (API)
@@ -50,7 +50,7 @@
 - [x] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
 - [x] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
 - [x] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
-- [ ] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
+- [x] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
 
 ## 6. Base de Datos - Migraciones SQL
 
@@ -91,12 +91,12 @@
 
 - [x] 10.1 Crear tests unitarios para `Company` agregado: constructores, métodos de validación, eventos de dominio
 - [x] 10.2 Crear tests unitarios para value objects `CatalogCode`, `CatalogDescription`: validación de length, caracteres
-- [ ] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
-- [ ] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
+- [x] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
+- [x] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
 - [x] 10.5 Crear tests unitarios para `DeleteCompanyCommandHandler`: eliminar no en uso, bloqueo si en uso
-- [ ] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
-- [ ] 10.7 Crear tests unitarios para FluentValidation validators
-- [ ] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
+- [x] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
+- [x] 10.7 Crear tests unitarios para FluentValidation validators
+- [x] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
 
 ## 11. Testing - Integración (Backend)
 
