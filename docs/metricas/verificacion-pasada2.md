@@ -29,3 +29,7 @@ Sesión iniciada 2026-10-09T13:53:04Z. Rama `feature/agentsky-apply-req-01-catal
 | 3.D backend test | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 22, Failed 0, Skipped 0, Total 22 | 2026-10-09T14:05:30Z |
 | 3.E backend build (tests ampliados) | `dotnet build src/apps/web/backend/Backend.slnx` | exit 0; 0 errores; 5 warnings | 2026-10-09T14:07:41Z |
 | 3.E backend test | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 38, Failed 0, Skipped 0, Total 38 | 2026-10-09T14:07:42Z |
+| 3.F frontend build (limpieza) | `cd src/apps/web/frontend && ./node_modules/.bin/ng build` | exit 0; 0 errores | 2026-10-09T14:11:21Z |
+| 3.F frontend test (limpieza) | `cd src/apps/web/frontend && ./node_modules/.bin/ng test --watch=false` | exit 0; 4 files, 17 tests | 2026-10-09T14:11:24Z |
+| 3.F backend build (limpieza) | `dotnet build src/apps/web/backend/Backend.slnx` | exit 0; 0 errores; 5 warnings | 2026-10-09T14:11:30Z |
+| 3.F backend test (limpieza) | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 38, Failed 0, Skipped 0, Total 38 | 2026-10-09T14:11:33Z |
