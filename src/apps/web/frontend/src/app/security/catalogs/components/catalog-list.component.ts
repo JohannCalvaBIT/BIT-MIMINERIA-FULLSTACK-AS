@@ -6,7 +6,20 @@ import { CatalogItemDto } from '../shared/catalog.types';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <input #search type="search" placeholder="Buscar por código o descripción" />
+    <div>
+      <input
+        #code
+        type="search"
+        placeholder="Buscar por código"
+        (input)="searchChanged(code.value, description.value)"
+      />
+      <input
+        #description
+        type="search"
+        placeholder="Buscar por descripción"
+        (input)="searchChanged(code.value, description.value)"
+      />
+    </div>
     @if (items().length === 0) {
       <p>No hay registros que coincidan con la búsqueda</p>
     } @else {
@@ -25,6 +38,11 @@ import { CatalogItemDto } from '../shared/catalog.types';
 })
 export class CatalogListComponent {
   readonly items = input.required<CatalogItemDto[]>();
+  readonly searchChange = output<{ code: string; description: string }>();
   readonly edit = output<CatalogItemDto>();
   readonly remove = output<CatalogItemDto>();
+
+  searchChanged(code: string, description: string): void {
+    this.searchChange.emit({ code, description });
+  }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { CatalogType } from '../shared/catalog.types';
+import { CatalogType } from '../shared/catalog-type';
 
 @Component({
   selector: 'app-catalog-selector',

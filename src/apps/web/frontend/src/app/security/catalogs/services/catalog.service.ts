@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { CatalogItemDto, CatalogType, CatalogWriteDto, PagedResult } from '../shared/catalog.types';
+import { CatalogItemDto, CatalogWriteDto, PagedResult } from '../shared/catalog.types';
+import { CatalogType } from '../shared/catalog-type';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
@@ -49,8 +50,10 @@ export class CatalogService {
   }
 
   private messageFor(error: HttpErrorResponse): Error {
-    const body = error.error as { error?: { message?: string } } | undefined;
-    return new Error(body?.error?.message ?? 'Ocurrió un error al procesar la operación');
+    const body = error.error as { error?: { message?: string }; message?: string } | undefined;
+    return new Error(
+      body?.error?.message ?? body?.message ?? 'Ocurrió un error al procesar la operación',
+    );
   }
 
   private resource(type: CatalogType): string {
@@ -62,5 +65,7 @@ export class CatalogService {
       case CatalogType.Discipline:
         return 'disciplines';
     }
+
+    throw new Error(`Tipo de catálogo no soportado: ${type}`);
   }
 }
