@@ -1,6 +1,8 @@
 using System.Text.Json;
 using Application.Catalogs.Commands;
+using Application.Catalogs.Validators;
 using Domain.Catalogs.Interfaces;
+using FluentValidation;
 using Infrastructure.Catalogs.Auditing;
 using Infrastructure.Catalogs.Persistence;
 using Infrastructure.Catalogs.Repositories;
@@ -25,6 +27,7 @@ public partial class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogDatabase")));
 
         builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<CreateCompanyCommand>());
+        builder.Services.AddValidatorsFromAssemblyContaining<CreateCompanyCommandValidator>();
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();

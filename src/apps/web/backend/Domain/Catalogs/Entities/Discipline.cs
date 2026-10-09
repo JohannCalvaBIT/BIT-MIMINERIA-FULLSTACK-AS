@@ -38,8 +38,10 @@ public sealed class Discipline : IAggregateRoot, ICatalogEntity
             return;
         }
 
+        var oldCode = Code;
+        var oldDescription = Description;
         Code = code;
-        MarkUpdated(now);
+        MarkUpdated(oldCode, oldDescription, now);
     }
 
     public void ChangeDescription(CatalogDescription description, DateTime now)
@@ -49,8 +51,10 @@ public sealed class Discipline : IAggregateRoot, ICatalogEntity
             return;
         }
 
+        var oldCode = Code;
+        var oldDescription = Description;
         Description = description;
-        MarkUpdated(now);
+        MarkUpdated(oldCode, oldDescription, now);
     }
 
     public void MarkDeleted(DateTime now)
@@ -60,9 +64,15 @@ public sealed class Discipline : IAggregateRoot, ICatalogEntity
 
     public void ClearDomainEvents() => _domainEvents.Clear();
 
-    private void MarkUpdated(DateTime now)
+    private void MarkUpdated(CatalogCode oldCode, CatalogDescription oldDescription, DateTime now)
     {
         ModifiedAt = now;
-        _domainEvents.Add(new DisciplineUpdatedEvent(Id, Code.Value, Description.Value, now));
+        _domainEvents.Add(new DisciplineUpdatedEvent(
+            Id,
+            oldCode.Value,
+            oldDescription.Value,
+            Code.Value,
+            Description.Value,
+            now));
     }
 }

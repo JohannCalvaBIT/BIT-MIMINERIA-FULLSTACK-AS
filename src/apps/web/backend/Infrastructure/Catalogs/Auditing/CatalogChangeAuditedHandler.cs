@@ -18,13 +18,28 @@ public sealed class CatalogChangeAuditedHandler
         var meta = domainEvent switch
         {
             CompanyCreatedEvent e => new AuditMeta("Company", e.EntityId, "CREATE", null, Json(e.Code, e.Description)),
-            CompanyUpdatedEvent e => new AuditMeta("Company", e.EntityId, "UPDATE", null, Json(e.Code, e.Description)),
+            CompanyUpdatedEvent e => new AuditMeta(
+                "Company",
+                e.EntityId,
+                "UPDATE",
+                Json(e.OldCode, e.OldDescription),
+                Json(e.Code, e.Description)),
             CompanyDeletedEvent e => new AuditMeta("Company", e.EntityId, "DELETE", Json(e.Code, null), null),
             FormatCreatedEvent e => new AuditMeta("Format", e.EntityId, "CREATE", null, Json(e.Code, e.Description)),
-            FormatUpdatedEvent e => new AuditMeta("Format", e.EntityId, "UPDATE", null, Json(e.Code, e.Description)),
+            FormatUpdatedEvent e => new AuditMeta(
+                "Format",
+                e.EntityId,
+                "UPDATE",
+                Json(e.OldCode, e.OldDescription),
+                Json(e.Code, e.Description)),
             FormatDeletedEvent e => new AuditMeta("Format", e.EntityId, "DELETE", Json(e.Code, null), null),
             DisciplineCreatedEvent e => new AuditMeta("Discipline", e.EntityId, "CREATE", null, Json(e.Code, e.Description)),
-            DisciplineUpdatedEvent e => new AuditMeta("Discipline", e.EntityId, "UPDATE", null, Json(e.Code, e.Description)),
+            DisciplineUpdatedEvent e => new AuditMeta(
+                "Discipline",
+                e.EntityId,
+                "UPDATE",
+                Json(e.OldCode, e.OldDescription),
+                Json(e.Code, e.Description)),
             DisciplineDeletedEvent e => new AuditMeta("Discipline", e.EntityId, "DELETE", Json(e.Code, null), null),
             _ => new AuditMeta("Unknown", Guid.Empty, "UNKNOWN", null, null)
         };

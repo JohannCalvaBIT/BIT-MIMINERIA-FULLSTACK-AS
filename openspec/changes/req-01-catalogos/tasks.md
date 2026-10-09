@@ -35,9 +35,9 @@
 - [ ] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
 - [ ] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
 - [ ] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
-- [ ] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
+- [x] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
 - [x] 4.6 Registrar servicios en composition root (`Program.cs`): repositories, DbContext, handlers MediatR, IUnitOfWork (G-GLOBAL-08)
-- [ ] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
+- [x] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
 - [x] 4.8 Configurar connection string: local (Testcontainers) en `appsettings.Local.json`, Azure SQL en `appsettings.Production.json` con Managed Identity (G-GLOBAL-08)
 
 ## 5. Backend - Capa de Presentación (API)
@@ -50,7 +50,7 @@
 - [x] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
 - [x] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
 - [x] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
-- [ ] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
+- [x] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
 
 ## 6. Base de Datos - Migraciones SQL
 
