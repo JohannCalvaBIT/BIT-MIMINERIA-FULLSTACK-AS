@@ -16,6 +16,14 @@ describe('globalAdminGuard', () => {
   it('denies access when no token is present', () => {
     window.localStorage.removeItem('access_token');
     const result = TestBed.runInInjectionContext(() => globalAdminGuard({} as never, [] as never));
-    expect(result).not.toBeTrue();
+    expect(result).not.toBe(true);
+  });
+
+  it('allows access when the token contains the GlobalAdmin role', () => {
+    const payload = window.btoa(JSON.stringify({ roles: ['GlobalAdmin'] }));
+    window.localStorage.setItem('access_token', `header.${payload}.signature`);
+
+    const result = TestBed.runInInjectionContext(() => globalAdminGuard({} as never, [] as never));
+    expect(result).toBe(true);
   });
 });
