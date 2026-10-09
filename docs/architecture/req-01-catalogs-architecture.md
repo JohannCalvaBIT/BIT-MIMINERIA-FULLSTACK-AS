@@ -12,12 +12,16 @@ en backend y Angular 20 zoneless (OnPush + signals) en frontend.
   (`CatalogCode`, `CatalogDescription`), eventos de dominio, excepciones e interfaces
   de repositorio/`IUnitOfWork`. No depende de otras capas (G-WEB-BE-01).
 - `Application/Catalogs`: comandos, queries, handlers MediatR y validadores
-  FluentValidation. Orquesta casos de uso y valida duplicidad antes de persistir.
+  FluentValidation. Orquesta casos de uso y valida duplicidad antes de persistir
+  (la verificación anti-duplicado vive en los handlers, por la Decisión 5).
 - `Infrastructure/Catalogs`: `CatalogDbContext` (EF Core solo ORM de consulta),
   repositorios y `UnitOfWork`. La auditoría se materializa dentro de `SaveChangesAsync`
-  a partir de los eventos del agregado (G-GLOBAL-06).
+  con una única llamada a EF Core, dentro de la misma transacción, y guarda
+  `OldValue`/`NewValue` para los eventos de actualización (G-GLOBAL-06).
 - `Presentation/Catalogs`: `CatalogController` con `[Authorize(Roles="GlobalAdmin")]`,
-  middlewares de `X-Correlation-Id` y transformación de excepciones de dominio a HTTP.
+  middlewares de `X-Correlation-Id` (que además abre un scope de log con el id) y
+  transformación de excepciones de dominio a HTTP. Los validadores FluentValidation
+  se registran en el composition root.
 
 ## Flujo de creación
 
@@ -25,7 +29,7 @@ en backend y Angular 20 zoneless (OnPush + signals) en frontend.
 2. El handler consulta por código y descripción (case-insensitive) para evitar duplicados.
 3. Crea el agregado `Company`, que registra `CompanyCreatedEvent`.
 4. `IUnitOfWork.SaveChangesAsync` persiste el agregado y escribe el log en
-   `Audit.CatalogChanges` en la misma unidad de trabajo.
+   `Audit.CatalogChanges` en una única llamada a EF Core.
 
 ## Persistencia
 
@@ -36,9 +40,12 @@ en backend y Angular 20 zoneless (OnPush + signals) en frontend.
 
 ## Frontend
 
-- `CatalogManagementComponent` es el contenedor smart (signals, OnPush).
+- `CatalogManagementComponent` es el contenedor smart (signals, OnPush); combina
+  tipo, filtros, paginación y trigger de recarga con `debounceTime(300)`.
 - `CatalogSelectorComponent`, `CatalogListComponent` y `CatalogFormComponent` son
   presentacionales con `input()`/`output()`.
+- `CatalogListComponent` expone búsqueda por código y descripción; el contenedor
+  posee la paginación y el estado de carga.
 - `CatalogService` encapsula RxJS y mapea errores HTTP a mensajes de UI.
 - `GlobalAdminGuard` valida el claim `roles` del token en el cliente; el backend
   sigue siendo la fuente de verdad de autorización.

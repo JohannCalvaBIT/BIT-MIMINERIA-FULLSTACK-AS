@@ -33,3 +33,5 @@ Sesión iniciada 2026-10-09T13:53:04Z. Rama `feature/agentsky-apply-req-01-catal
 | 3.F frontend test (limpieza) | `cd src/apps/web/frontend && ./node_modules/.bin/ng test --watch=false` | exit 0; 4 files, 17 tests | 2026-10-09T14:11:24Z |
 | 3.F backend build (limpieza) | `dotnet build src/apps/web/backend/Backend.slnx` | exit 0; 0 errores; 5 warnings | 2026-10-09T14:11:30Z |
 | 3.F backend test (limpieza) | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 38, Failed 0, Skipped 0, Total 38 | 2026-10-09T14:11:33Z |
+| 3.G docs | `git diff --check` y `wc -l docs/architecture/req-01-catalogs-architecture.md docs/metricas/stub-gaps.md docs/metricas/decisiones-agente.md` | exit 0; 51+51+35=137 líneas, sin whitespace errors | 2026-10-09T14:13:00Z |
+| 5 cierre bit exec end | `bit exec end --command apply --change "req-01-catalogos" --result OK --log-activity --role "Developer Backend" --activity "..." --guardrail G-WEB-BE-01 --estimated-min 240` | exit 0; fila añadida a execution_log.ndjson y guardrail_activity_log.csv | 2026-10-09T14:14:24Z |

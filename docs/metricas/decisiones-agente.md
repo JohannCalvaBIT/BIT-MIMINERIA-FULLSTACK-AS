@@ -19,3 +19,17 @@ resuelven con la opción más conservadora.
   rutas canónicas de tasks.md usan `companies`/`formats`/`disciplines`. Se
   implementaron las rutas de tasks.md; el catálogo Empresa queda en inglés para
   ser consistente con el resto del módulo.
+
+## Segunda pasada (corrección/verificación)
+
+- `CatalogType` queda definido una sola vez como enum en
+  `shared/catalog-type.ts`; se elimina el type alias duplicado.
+- La búsqueda UI se mueve a `CatalogListComponent` con campos de código y
+  descripción; el contenedor aplica `debounceTime(300)` sobre un `combineLatest`
+  de tipo/filtros/paginación/trigger y no envuelve Observables en Promises.
+- La verificación anti-duplicado se mantiene en los handlers (Decisión 5); solo
+  se registran los validadores FluentValidation en `Program.cs`.
+- `CatalogCode` no agrega reglas de caracteres porque el spec no las define.
+- `GetUsageCountAsync` se deja como stub (`0`) porque “uso” sigue `[Por definir]`.
+- La autorización JWT/Entra con rol resuelto en servidor no se implementa por
+  conflicto con G-WEB-BE-04.
