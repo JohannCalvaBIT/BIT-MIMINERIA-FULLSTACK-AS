@@ -138,4 +138,4 @@
 - [ ] 15.2 Ejecutar script `run-migrations.ps1` en staging: verificar que tablas se crean y indices funcionan
 - [ ] 15.3 Crear rollback plan: script v001_rollback.sql
 - [ ] 15.4 Verificar logs de auditoría en Application Insights post-deployment (G-GLOBAL-06)
-- [ ] 15.5 Registrar actividad de implementación en `docs/metricas/guardrail_activity_log.csv` (tiempo estimado vs real, guardrails aplicados, resultado OK)
+- [x] 15.5 Registrar actividad de implementación en `docs/metricas/guardrail_activity_log.csv` (tiempo estimado vs real, guardrails aplicados, resultado OK)
