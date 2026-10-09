@@ -22,3 +22,4 @@ Sesión iniciada 2026-10-09T13:53:04Z. Rama `feature/agentsky-apply-req-01-catal
 | 1.b backend build | `dotnet build src/apps/web/backend/Backend.slnx` | exit 0; 0 errores; 5 warnings (NU1903 x3/4, CS0618 Testcontainers) | 2026-10-09T13:54:18Z |
 | 1.b backend test | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 22, Failed 0, Skipped 0, Total 22 | 2026-10-09T13:54:21Z |
 | 3.A frontend build (corregido) | `cd src/apps/web/frontend && ./node_modules/.bin/ng build` | exit 0; build Angular OK, 0 errores | 2026-10-09T14:01:20Z |
+| 3.B frontend test | `cd src/apps/web/frontend && ./node_modules/.bin/ng test --watch=false` | exit 0; 5 test files, 19 tests passed | 2026-10-09T14:03:17Z |

@@ -118,10 +118,10 @@
 
 ## 13. Testing - Frontend (Angular)
 
-- [ ] 13.1 Crear tests unitarios para `CatalogFormComponent`: reactive form, validaciones, submit
-- [ ] 13.2 Crear tests unitarios para `CatalogListComponent`: listar, buscar, habilitar/deshabilitar acciones
-- [ ] 13.3 Crear tests unitarios para `CatalogService`: métodos create/update/delete retornan observables correctos
-- [ ] 13.4 Crear tests unitarios para `GlobalAdminGuard`: retorna true si GlobalAdmin, false si no (70%+ cobertura target)
+- [x] 13.1 Crear tests unitarios para `CatalogFormComponent`: reactive form, validaciones, submit
+- [x] 13.2 Crear tests unitarios para `CatalogListComponent`: listar, buscar, habilitar/deshabilitar acciones
+- [x] 13.3 Crear tests unitarios para `CatalogService`: métodos create/update/delete retornan observables correctos
+- [x] 13.4 Crear tests unitarios para `GlobalAdminGuard`: retorna true si GlobalAdmin, false si no (70%+ cobertura target)
 - [ ] 13.5 Crear tests e2e (Cypress o Playwright): flujo completo crear empresa, editar, buscar, eliminar
 - [ ] 13.6 Crear tests e2e para flujo bloqueado: crear empresa, marcar como en uso, intentar editar código/eliminar
 
