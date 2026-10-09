@@ -64,7 +64,7 @@
 
 - [x] 7.1 Crear componente `CatalogManagementComponent` en `src/apps/web/frontend/src/app/security/catalogs/` con ChangeDetectionStrategy.OnPush, signal() para estado (G-WEB-FE-03)
 - [x] 7.2 Crear subcomponente `CatalogSelectorComponent` en `src/apps/web/frontend/src/app/security/catalogs/components/`
-- [ ] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
+- [x] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
 - [x] 7.4 Crear subcomponente `CatalogFormComponent` para crear/editar registros (reactive forms, OnPush)
 - [x] 7.5 Crear servicio `CatalogService` en `src/apps/web/frontend/src/app/security/catalogs/services/` con métodos create/update/delete/getList/search (RxJS 7.8)
 - [x] 7.6 Crear tipos TypeScript en `src/apps/web/frontend/src/app/security/catalogs/shared/`: `CompanyDto`, `FormatDto`, `DisciplineDto`, `CatalogType` enum
@@ -73,8 +73,8 @@
 
 - [x] 8.1 Implementar formulario reactivo en `CatalogFormComponent` (`src/apps/web/frontend/src/app/security/catalogs/components/catalog-form.component.ts`) con validadores: required, maxLength (code: 150, description: 250)
 - [x] 8.2 Conectar submit del formulario a `CatalogService.create()` / `CatalogService.update()`
-- [ ] 8.3 Mostrar mensajes de error de validación (duplicidad, length) y éxito (G-GLOBAL-03)
-- [ ] 8.4 Implementar search debounced en `CatalogListComponent` (300ms debounce) para performance
+- [x] 8.3 Mostrar mensajes de error de validación (duplicidad, length) y éxito (G-GLOBAL-03)
+- [x] 8.4 Implementar search debounced en `CatalogListComponent` (300ms debounce) para performance
 - [ ] 8.5 Mostrar indicador "En uso" en listado si un registro está en uso (consultar backend o mostrar campo `IsInUse` en DTO)
 - [ ] 8.6 Deshabilitar botón "Editar Código" y botón "Eliminar" si registro está en uso
 - [x] 8.7 Implementar confirmación de eliminación (modal/dialog con "¿Está seguro?")
