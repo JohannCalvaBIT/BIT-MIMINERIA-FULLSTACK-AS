@@ -16,3 +16,8 @@ Sesión iniciada 2026-10-09T13:53:04Z. Rama `feature/agentsky-apply-req-01-catal
 | Tarea o paso | Comando | Resultado (exit code y conteos) | Hora UTC |
 |---|---|---|---|
 | 0.d versiones | `node -v; dotnet --version; pnpm -v; cd src/apps/web/frontend && pnpm -v` | exit 0; versiones arriba | 2026-10-09T13:53:04Z |
+| 1.a frontend install | `cat > pnpm-workspace.yaml (allowBuilds); cd src/apps/web/frontend && pnpm install --frozen-lockfile` | exit 0; 467 packages installed; warning pnpm.onlyBuiltDependencies ignorado | 2026-10-09T13:53:53Z |
+| 1.a frontend build (pre-corrección) | `./node_modules/.bin/ng build` | exit 1; 9 errores TS (CatalogType usado como valor, subscribe/Promise mal tipado, items sobre Observable, resource sin return) | 2026-10-09T13:53:53Z |
+| 1.a frontend test (pre-corrección) | `./node_modules/.bin/ng test --watch=false` | exit 1; 10 errores de compilación; 0 tests ejecutados | 2026-10-09T13:54:02Z |
+| 1.b backend build | `dotnet build src/apps/web/backend/Backend.slnx` | exit 0; 0 errores; 5 warnings (NU1903 x3/4, CS0618 Testcontainers) | 2026-10-09T13:54:18Z |
+| 1.b backend test | `dotnet test src/apps/web/backend/Backend.slnx --no-build` | exit 0; Passed 22, Failed 0, Skipped 0, Total 22 | 2026-10-09T13:54:21Z |

@@ -10,7 +10,7 @@
 - [x] 2.1 Crear clase `Company` (agregado raíz) con propiedades Code, Description, CreatedAt, ModifiedAt (G-WEB-BE-01)
 - [x] 2.2 Crear clase `Format` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
 - [x] 2.3 Crear clase `Discipline` (agregado raíz) con propiedades Code, Description (G-WEB-BE-01)
-- [x] 2.4 Implementar value object `CatalogCode` para encapsular validación de código (length, caracteres permitidos)
+- [ ] 2.4 Implementar value object `CatalogCode` para encapsular validación de código (length, caracteres permitidos)
 - [x] 2.5 Implementar value object `CatalogDescription` para encapsular validación de descripción
 - [x] 2.6 Crear excepciones de dominio: `DuplicateCodeException`, `DuplicateDescriptionException`, `CatalogInUseException` (G-WEB-BE-03)
 - [x] 2.7 Crear eventos de dominio: `CompanyCreatedEvent`, `CompanyUpdatedEvent`, `CompanyDeletedEvent` (y equivalentes para Format, Discipline)
@@ -27,17 +27,17 @@
 - [x] 3.7 Crear query `SearchCompaniesQuery` y handler que filtra por Code/Description (case-insensitive)
 - [x] 3.8 Crear equivalentes de queries para `Format` y `Discipline` (6 queries totales)
 - [x] 3.9 Implementar interfaz `IUnitOfWork` para manejar transacciones
-- [x] 3.10 Crear validadores FluentValidation para cada comando (anti-duplicado verificando repo)
+- [ ] 3.10 Crear validadores FluentValidation para cada comando (anti-duplicado verificando repo)
 
 ## 4. Backend - Capa de Infraestructura
 
 - [x] 4.1 Crear `CatalogDbContext` derivado de DbContext con DbSets para Company, Format, Discipline, AuditLog (G-WEB-BE-03)
-- [x] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
-- [x] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
-- [x] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
-- [x] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
+- [ ] 4.2 Implementar `CompanyRepository` derivado de `ICompanyRepository` (G-WEB-BE-03)
+- [ ] 4.3 Implementar `FormatRepository` derivado de `IFormatRepository`
+- [ ] 4.4 Implementar `DisciplineRepository` derivado de `IDisciplineRepository`
+- [ ] 4.5 Implementar `UnitOfWork` que coordina repositories y maneja transacciones
 - [x] 4.6 Registrar servicios en composition root (`Program.cs`): repositories, DbContext, handlers MediatR, IUnitOfWork (G-GLOBAL-08)
-- [x] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
+- [ ] 4.7 Crear event handler `CatalogChangeAuditedHandler` que escucha eventos de dominio y escribe en tabla `Audit.CatalogChanges` (G-GLOBAL-06)
 - [x] 4.8 Configurar connection string: local (Testcontainers) en `appsettings.Local.json`, Azure SQL en `appsettings.Production.json` con Managed Identity (G-GLOBAL-08)
 
 ## 5. Backend - Capa de Presentación (API)
@@ -50,7 +50,7 @@
 - [x] 5.6 Crear endpoints GET `/api/catalogs/companies/search?code=...&description=...` (SearchCompaniesQuery)
 - [x] 5.7 Crear equivalentes de endpoints para `/api/catalogs/formats` y `/api/catalogs/disciplines` (18 endpoints totales)
 - [x] 5.8 Implementar error handling middleware que transforma excepciones de dominio a respuestas HTTP (DuplicateCodeException → 400 BadRequest, etc.)
-- [x] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
+- [ ] 5.9 Implementar correlation ID middleware para trazabilidad (G-GLOBAL-06)
 
 ## 6. Base de Datos - Migraciones SQL
 
@@ -62,41 +62,41 @@
 
 ## 7. Frontend - Estructura de componentes
 
-- [x] 7.1 Crear componente `CatalogManagementComponent` en `src/apps/web/frontend/src/app/security/catalogs/` con ChangeDetectionStrategy.OnPush, signal() para estado (G-WEB-FE-03)
+- [ ] 7.1 Crear componente `CatalogManagementComponent` en `src/apps/web/frontend/src/app/security/catalogs/` con ChangeDetectionStrategy.OnPush, signal() para estado (G-WEB-FE-03)
 - [x] 7.2 Crear subcomponente `CatalogSelectorComponent` en `src/apps/web/frontend/src/app/security/catalogs/components/`
-- [x] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
+- [ ] 7.3 Crear subcomponente `CatalogListComponent` con búsqueda/filtrado (OnPush + signals)
 - [x] 7.4 Crear subcomponente `CatalogFormComponent` para crear/editar registros (reactive forms, OnPush)
-- [x] 7.5 Crear servicio `CatalogService` en `src/apps/web/frontend/src/app/security/catalogs/services/` con métodos create/update/delete/getList/search (RxJS 7.8)
-- [x] 7.6 Crear tipos TypeScript en `src/apps/web/frontend/src/app/security/catalogs/shared/`: `CompanyDto`, `FormatDto`, `DisciplineDto`, `CatalogType` enum
+- [ ] 7.5 Crear servicio `CatalogService` en `src/apps/web/frontend/src/app/security/catalogs/services/` con métodos create/update/delete/getList/search (RxJS 7.8)
+- [ ] 7.6 Crear tipos TypeScript en `src/apps/web/frontend/src/app/security/catalogs/shared/`: `CompanyDto`, `FormatDto`, `DisciplineDto`, `CatalogType` enum
 
 ## 8. Frontend - Implementación de formularios y lógica
 
 - [x] 8.1 Implementar formulario reactivo en `CatalogFormComponent` (`src/apps/web/frontend/src/app/security/catalogs/components/catalog-form.component.ts`) con validadores: required, maxLength (code: 150, description: 250)
-- [x] 8.2 Conectar submit del formulario a `CatalogService.create()` / `CatalogService.update()`
-- [x] 8.3 Mostrar mensajes de error de validación (duplicidad, length) y éxito (G-GLOBAL-03)
-- [x] 8.4 Implementar search debounced en `CatalogListComponent` (300ms debounce) para performance
-- [x] 8.5 Mostrar indicador "En uso" en listado si un registro está en uso (consultar backend o mostrar campo `IsInUse` en DTO)
-- [x] 8.6 Deshabilitar botón "Editar Código" y botón "Eliminar" si registro está en uso
-- [x] 8.7 Implementar confirmación de eliminación (modal/dialog con "¿Está seguro?")
-- [x] 8.8 Manejar errores HTTP en `CatalogService` y propagar mensajes claros a la UI (G-GLOBAL-03)
+- [ ] 8.2 Conectar submit del formulario a `CatalogService.create()` / `CatalogService.update()`
+- [ ] 8.3 Mostrar mensajes de error de validación (duplicidad, length) y éxito (G-GLOBAL-03)
+- [ ] 8.4 Implementar search debounced en `CatalogListComponent` (300ms debounce) para performance
+- [ ] 8.5 Mostrar indicador "En uso" en listado si un registro está en uso (consultar backend o mostrar campo `IsInUse` en DTO)
+- [ ] 8.6 Deshabilitar botón "Editar Código" y botón "Eliminar" si registro está en uso
+- [ ] 8.7 Implementar confirmación de eliminación (modal/dialog con "¿Está seguro?")
+- [ ] 8.8 Manejar errores HTTP en `CatalogService` y propagar mensajes claros a la UI (G-GLOBAL-03)
 
 ## 9. Frontend - Acceso y autenticación
 
 - [x] 9.1 Crear guard `GlobalAdminGuard` en `src/apps/web/frontend/src/app/security/catalogs/shared/` que verifica si el usuario tiene rol "GlobalAdmin" (leer claims del token)
 - [x] 9.2 Proteger ruta `/security/catalogs` con `GlobalAdminGuard` en el routing module
-- [x] 9.3 Ocultar enlace a "Catálogos" en menú si usuario no tiene rol GlobalAdmin (UX mejora)
+- [ ] 9.3 Ocultar enlace a "Catálogos" en menú si usuario no tiene rol GlobalAdmin (UX mejora)
 - [x] 9.4 Enviar correlation ID en headers de requests HTTP (propagar desde el frontend) (G-GLOBAL-06)
 
 ## 10. Testing - Unidad (Backend)
 
 - [x] 10.1 Crear tests unitarios para `Company` agregado: constructores, métodos de validación, eventos de dominio
 - [x] 10.2 Crear tests unitarios para value objects `CatalogCode`, `CatalogDescription`: validación de length, caracteres
-- [x] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
-- [x] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
+- [ ] 10.3 Crear tests unitarios para `CreateCompanyCommandHandler`: happy path, duplicado, validación fallida
+- [ ] 10.4 Crear tests unitarios para `UpdateCompanyCommandHandler`: editar no en uso, editar en uso (código bloqueado), validación
 - [x] 10.5 Crear tests unitarios para `DeleteCompanyCommandHandler`: eliminar no en uso, bloqueo si en uso
-- [x] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
-- [x] 10.7 Crear tests unitarios para FluentValidation validators
-- [x] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
+- [ ] 10.6 Crear tests unitarios para queries: `GetCompaniesQuery`, `SearchCompaniesQuery`
+- [ ] 10.7 Crear tests unitarios para FluentValidation validators
+- [ ] 10.8 Crear tests unitarios equivalentes para `Format` y `Discipline` (18 test classes, 75%+ cobertura target)
 
 ## 11. Testing - Integración (Backend)
 
@@ -118,16 +118,16 @@
 
 ## 13. Testing - Frontend (Angular)
 
-- [x] 13.1 Crear tests unitarios para `CatalogFormComponent`: reactive form, validaciones, submit
-- [x] 13.2 Crear tests unitarios para `CatalogListComponent`: listar, buscar, habilitar/deshabilitar acciones
-- [x] 13.3 Crear tests unitarios para `CatalogService`: métodos create/update/delete retornan observables correctos
-- [x] 13.4 Crear tests unitarios para `GlobalAdminGuard`: retorna true si GlobalAdmin, false si no (70%+ cobertura target)
-- [x] 13.5 Crear tests e2e (Cypress o Playwright): flujo completo crear empresa, editar, buscar, eliminar
-- [x] 13.6 Crear tests e2e para flujo bloqueado: crear empresa, marcar como en uso, intentar editar código/eliminar
+- [ ] 13.1 Crear tests unitarios para `CatalogFormComponent`: reactive form, validaciones, submit
+- [ ] 13.2 Crear tests unitarios para `CatalogListComponent`: listar, buscar, habilitar/deshabilitar acciones
+- [ ] 13.3 Crear tests unitarios para `CatalogService`: métodos create/update/delete retornan observables correctos
+- [ ] 13.4 Crear tests unitarios para `GlobalAdminGuard`: retorna true si GlobalAdmin, false si no (70%+ cobertura target)
+- [ ] 13.5 Crear tests e2e (Cypress o Playwright): flujo completo crear empresa, editar, buscar, eliminar
+- [ ] 13.6 Crear tests e2e para flujo bloqueado: crear empresa, marcar como en uso, intentar editar código/eliminar
 
 ## 14. Documentación y validación
 
-- [x] 14.1 Documentar la arquitectura CQRS + MediatR en `docs/architecture/req-01-catalogs-architecture.md` con ejemplos
+- [ ] 14.1 Documentar la arquitectura CQRS + MediatR en `docs/architecture/req-01-catalogs-architecture.md` con ejemplos
 - [x] 14.2 Crear la documentación de divergencias local/Azure en `docs/divergence-matrix.md` (G-GLOBAL-08)
 - [ ] 14.3 Ejecutar `bit validate` para validar specs, design y tasks contra guardrails
 - [ ] 14.4 Crear PR con todos los cambios, incluir enlace a proposal/specs/design/tasks en descripción
