@@ -1,5 +1,3 @@
-export type CatalogType = 'company' | 'format' | 'discipline';
-
 export interface CatalogItemDto {
   id: string;
   code: string;
