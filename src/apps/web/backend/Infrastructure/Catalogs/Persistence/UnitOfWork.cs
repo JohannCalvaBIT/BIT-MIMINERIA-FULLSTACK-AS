@@ -44,13 +44,12 @@ public sealed class UnitOfWork : IUnitOfWork
             .Select(log => log!)
             .ToList();
 
-        var result = await _dbContext.SaveChangesAsync(cancellationToken);
-
         if (auditLogs.Count > 0)
         {
             _dbContext.CatalogChanges.AddRange(auditLogs);
-            await _dbContext.SaveChangesAsync(cancellationToken);
         }
+
+        var result = await _dbContext.SaveChangesAsync(cancellationToken);
 
         foreach (var entry in _dbContext.ChangeTracker.Entries<IAggregateRoot>())
         {
